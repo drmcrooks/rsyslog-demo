@@ -19,8 +19,6 @@ services:
     container_name: client
     cap_add:
       - NET_ADMIN
-    volumes:
-      - certificates:/certs
     networks:
       - internal
 
