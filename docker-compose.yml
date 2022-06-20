@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+# Infrastructure
+
+  router:
+    build: ./components/router/
+    container_name: router
+    volumes:
+      - router_data:/opt/pocketsoc-ng/router/data
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - internal
+
+## Client
+
+  client:
+    build: ./components/client/
+    container_name: client
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - certificates:/certs
+    networks:
+      - internal
+
+  logger:
+    build: ./components/logger/
+    container_name: logger
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - internal
+
+
+networks:
+  internal:
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
